@@ -40,7 +40,11 @@ public class DOMMenu {
   public static void main(String[] args)  {
     // load XML file into "document"
     loadDocument(args[0]);
-    // print staff.xml using DOM methods and XPath queries
+
+    //Load the XML Schema into "schema" and conduct validation:
+    validateDocument(args[1]);
+
+    // print xml file using DOM methods and XPath queries
     printNodes();
   
    
@@ -84,19 +88,31 @@ public class DOMMenu {
       return true;
     } catch (Exception e){
       System.err.println(e);
-      System.err.println("Could not load schema or validate");
+      System.err.println("Could not load schema or validate, due to the following exception: " + e);
       return false;
     }
   }
   /**
     Print nodes using DOM methods and XPath queries.
   */
-  private static void printNodes() {
-    Node menuItem_1 = document.getFirstChild();
-    Node menuItem_2 = menuItem_1.getFirstChild().getNextSibling();
-    System.out.println("First child is: " + menuItem_1.getNodeName());
-    System.out.println("  Child is: " + menuItem_2.getNodeName());
+  private static void printNodes()
+  {
+    //Build lists of element data in the document:
+    NodeList itemList = document.getElementsByTagName("item");
+    NodeList nameList = document.getElementsByTagName("name");
+    NodeList priceList = document.getElementsByTagName("price");
+    NodeList descriptionList = document.getElementsByTagName("description");
 
+    //iterate through the lists and print out details of each menu item:
+    int numberOfElements = itemList.getLength();
+
+    for (int i = 0; i < numberOfElements; ++i)
+    {
+      System.out.println("Name: " + nameList.item(i).getTextContent() + ".");
+      System.out.println("Description: " + descriptionList.item(i).getTextContent() + ".");
+      System.out.println("Price: \u00A3" + priceList.item(i).getTextContent() + ".");
+      System.out.println("\r");
+    }
   }
 
   /**

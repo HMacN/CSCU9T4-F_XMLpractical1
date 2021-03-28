@@ -6,4 +6,3 @@ Part 3A:  Using DOM, the validateDocument method was added after the loadDocumen
 
 Part 3B:  Using DOM, the error message in validateDocument was altered to read "Could not load schema or validate, due to the following exception:".  The exception is then printed.
 
-Part 3C:  Using DOM, the printNodes method was modified to generate lists of the element data in the XML document, and then to print it in an easy to read format.
